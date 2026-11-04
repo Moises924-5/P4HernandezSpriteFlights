@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
+    public float maxSpinSpeed = 10f;
     public float minSize = 0.5f;
     public float maxSize = 2.0f;
     Rigidbody2D rb;
@@ -16,9 +17,11 @@ public class Obstacle : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
 
-        float randomSpeed = Random.Range(minSpeed, maxSpeed);
+        float randomSpeed = Random.Range(minSpeed, maxSpeed) / randomSize;
         Vector2 randomDirection = Random.insideUnitCircle;
         rb.AddForce(randomDirection * randomSpeed);
+        float randomTorque = Random.Range(-maxSpinSpeed, maxSpinSpeed);
+        rb.AddTorque(randomTorque);
     }
 
     // Update is called once per frame
